@@ -18,12 +18,12 @@ $(document).ready(function($) {
 
 
 	// loader
-	var loader = function() {
+	var loader = function(t=1) {
 		setTimeout(function() { 
 			if($('#ftco-loader').length > 0) {
 				$('#ftco-loader').removeClass('show');
 			}
-		}, 1);
+		}, t);
 	};
 	loader();
 

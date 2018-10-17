@@ -65,32 +65,6 @@ data-stellar-background-ratio="1" >
   <div class="container cards" >
 
 
-    <!-- <div class="row">
-        {% for k in keys.all %}
-      <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-        <div class="post-entry mb-5">
-          <a href="blog-single.html" class="mb-3 img-wrap">
-            <img src="{% static 'images/img_4.jpg' %}" alt="Image placeholder" class="img-fluid">
-            <span class="date">July 26, 2018</span>
-          </a>
-          <h3><a href="">{{k.title}}</a></h3>
-          <p>{{ k.desc }}</p>
-          {% if xyz == 1 %}
-          <form method="GET" action="{% url 'topic' %}">
-            <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-            <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-          </form>
-          {% else %}
-          <form method="GET" action="{% url 'resource' %}">
-            <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-            <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-          </form>
-          {% endif %}
-        </div>
-      </div>
-      {% endfor %}
-    </div> -->
-
     <section class="strips">
         <article onclick="topFunction()" class="strips__strip">
           <div class="strip__content" id="leftOne">
@@ -198,10 +172,6 @@ data-stellar-background-ratio="1" >
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
   crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-  crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-  crossorigin="anonymous"></script>
 
 <script>
   function topFunction() {
@@ -225,5 +195,7 @@ data-stellar-background-ratio="1" >
   });
 </script>
 {% endif %}
+
+<script src="{% static 'js/myjs.js' %}"></script>
 
 {% endblock %}

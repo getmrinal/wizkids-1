@@ -3,243 +3,95 @@
 {% block content %}
 
 {% load staticfiles %}
-
-<div class="block-31" style="position: relative;">
-    <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 item" style="background-image: url('{% static 'images/bg_1.jpg' %}');"
-        data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-md-7">
-              <h2 class="heading">Every student can learn, just not on the same day, or the same way.</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-<br>
-
-{% if chk == 3 or chk == 1 %}
-{% if chk == 3 %}
-<div class="container">
-  <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Course</button>
+<div class="container" id="loader" style="display:none; width:100%; text-align:center"  >
+  <img  src="{% static 'images/Preloader_7.gif' %}" alt="">
 </div>
-{% elif chk == 1 %}
+
 <div class="container">
+  <div class="forbuttons" id="setbuttons">
+    <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Course</button>
+  </div>
+  <br>
   <div class="row">
-    <div class="col-md-4">
-      <button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button>
+    <div style="display:none" class="col-2" id="justforcourse">
+     
     </div>
-    <div class="col-md-4">
+    <div style="display:none" class="col-2" id="justforres">
 
-      <form method="GET" action="{% url 'reord' %}">
-        <button onclick="func()" class="btn btn-success">Re-Order</button>
-        <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
-      </form>
+    </div>
+    <div class="col-8 fortables" id="showtable">
+      <table class="grid table table-striped table-dark table-hover" title="Ordinary Table">
+        <thead>
+          <tr>
+            <th>Course Title</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            {% for k in keys.all %}
+          <tr>
+            <td>
+              {{k.title}}
+            </td>
+            <td>
+              <button class="btn btn-success" onclick="capmodal({{ k.ids }})" data-toggle="modal" data-target="#topicdesc">View</button>
+              <input id="{{ k.ids }}" hidden=true value="{{ k.desc }}" />
+            </td>
+            <td>
+
+              <!-- <input hidden=true  class="xyz" id="getcourseid" type="number" name="foreignKey" value="{{ k.ids }}"> -->
+              <button class="btn btn-success" id="knowtopics" onclick="knowtopics({{ k.ids }})" type="submit" name="goto">Know More</button>
+
+            </td>
+          </tr>
+
+
+          {% endfor %}
+
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
-{% endif %}
-<br>
-{% endif %}
 
-<div class="container">
-{% if chk == 2 %}
-
-<!-- this is for the resources template -->
-<div class="container">
-  <div class="row">
-    <div class="col-md-3">
-      <button class="btn btn-success" data-toggle="modal" data-target="#addresource2">Add text/Questions</button>
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-success" data-toggle="modal" data-target="#addresource">Add Video/Pictures</button>
-    </div>
-
-    <div class="col-md-3">
-        <button class="btn btn-success" data-toggle="modal" data-target="#addresource3">Add MCQ</button>
-    </div>
-
-    <div class="col-md-3">
-        <form action="{% url 'reres' %}" method="get">
-        <button onclick="func()" class="btn btn-success">Re-Order</button>
-        <input type="text" hidden=true name="setvalue" id="setvalue" value="initial value" />
-      </form>
-    </div>
-  </div>
-</div>
-
-<br>
-<table id="sort" class="grid table table-striped table-dark table-hover" title="Magic Table">
-  <thead>
-      <tr><th class="index text-center" scope="col">Updated Order ID</th><th>Current Order ID</th><th>Code</th><th>Content</th></tr>
-  </thead>
-  <tbody>
-{% for k in keys.all %}
-      <tr>
-        <td class="index" scope="row">
-          {{k.oid}}
-        </td>
-        <td  class="ord">
-          {{k.oid}}
-        </td>
-        <td>
-          {{k.code}}
-        </td>
-        <td id="{{k.conid}}">
-
-          <!-- <video id="myvideo" src="">
-          </video>
-          <img id="mypic" src="" alt="" /> -->
-          <script type="text/javascript">
-            var init = {{ k.data|safe }};
-            var final = JSON.stringify(init);
-            var myjson = JSON.parse(final);
-            if(myjson.code == "Q" || myjson.code == "T")
-            {
-              document.getElementById('{{k.conid}}').innerHTML = `${myjson.content.question} <br> ${myjson.content.answer}`;
-            }
-            else if(myjson.code == "V" || myjson.code == "P")
-            {
-              if(myjson.code == "V")
-              {
-                document.getElementById('{{k.conid}}').innerHTML =`<video controls preload="none" src="${myjson.url}" ></video>`
-              }
-              else if(myjson.code == "P")
-              {
-                document.getElementById('{{k.conid}}').innerHTML = `<img src="${myjson.url}" width="10%" height="20%" alt="some image" >`
-              }
-            }
-            else if(myjson.code == "M"){
-              document.getElementById('{{k.conid}}').innerHTML = `${myjson.ques} `;
-            }
-          </script>
-
-        </td>
-        <td>
-        <span class="navbar-toggler-icon"></span>
-      </td>
-      </tr>
-{% endfor %}
-
-  </tbody>
-</table>
-
-
-
-{% else %}
-<br>
-{% if chk == 1 %}
-<table id="sort" class="grid table table-striped table-dark table-hover" title="Magic Table">
-    <thead>
-        <tr><th class="index text-center" scope="col">Updated Order ID</th><th>Current Order ID</th><th>Topic Title</th><th>Description</th></tr>
-    </thead>
-{% elif chk == 3 %}
-<table class="grid table table-striped table-dark table-hover" title="Ordinary Table">
-  <thead>
-      <tr><th>Topic Title</th><th>Description</th></tr>
-  </thead>
-  {% endif %}
-    <tbody>
-{% for k in keys.all %}
-        {% if chk == 1 %}
-        <tr>
-          <td class="index" scope="row">
-            {{k.oid}}
-          </td>
-          <td  class="ord">
-            {{k.oid}}
-          </td>
-          {% endif %}
-          {% if chk == 1 or chk == 3 %}
-          <td>
-            {{k.title}}
-          </td>
-          <td>
-            <button class="btn btn-success" onclick="capmodal({{ k.ids }})" data-toggle="modal" data-target="#topicdesc">View</button>
-            <input id="{{ k.ids }}" hidden=true value="{{ k.desc }}" />
-          </td>
-          <td>
-            {% if chk == 1 %}
-            <form method="GET" action="{% url 'res' %}">
-              <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-              <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-            </form>
-            {% else %}
-            <form method="GET" action="{% url 'top' %}">
-              <input hidden=true type="number" name="foreignKey" value="{{ k.ids }}" >
-              <input class="btn btn-primary" type="submit" name="goto" value="Know More">
-            </form>
-            {% endif %}
-          </td>
-          <td>
-            <span class="navbar-toggler-icon"></span>
-          </td>
-        </tr>
-        {% endif %}
-
-{% endfor %}
-
-    </tbody>
-</table>
-
-{% endif %}
-
-
-
-</div>
-
+<!-- modal for the creator starts -->
 <div class="modal fade" id="addcourse" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        {% if chk == 3 %}
         <h5 class="modal-title" id="SignUpModal">Add Course</h5>
-        {% elif chk == 1 %}
-        <h5 class="modal-title" id="SignUpModal">Add Topic</h5>
-        {% endif %}
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" action="{% url 'addc' %}" enctype="multipart/form-data">
+        <form method="GET" onsubmit="courseAdd()" enctype="multipart/form-data">
           <!--  -->
           {% csrf_token %}
 
 
           <div class="form-group">
-            {% if chk == 3 %}
+
             <label>Course Title</label>
-            {% elif chk == 1 %}
-            <label>Topic Title</label>
-            {% endif %}
-            <input type="text" name="ctitle" class="form-control" aria-describedby="emailHelp"
-              placeholder="Enter a suitable course title">
+
+            <input type="text" name="ctitle" id="ctitle" class="form-control" aria-describedby="emailHelp" placeholder="Enter a suitable course title">
           </div>
           <div class="form-group">
-            {% if chk == 3 %}
+
             <label>Course Description</label>
-            {% elif chk == 1 %}
-            <label>Topic Description</label>
-            {% endif %}
-            <textarea rows="10" cols="6" name="cdesc" class="form-control" aria-describedby="emailHelp"
+
+            <textarea rows="10" cols="6" name="cdesc" id="cdesc" class="form-control" aria-describedby="emailHelp"
               placeholder="Enter Course Description"></textarea>
           </div>
           <div class="form-group">
-              <label>Image</label>
-              <input type="file" name="thmb" class="form-control " id="imageUser" placeholder="Enter">
+            <label>Image</label>
+            <input type="file" name="thmb" id="thmb" class="form-control " id="imageUser" placeholder="Enter">
           </div>
-          {% if chk == 1 %}
 
-            <input hidden="true" type="number" name="orderid" value="{{ ordLen }}" >
-            <input hidden=true name="getcid" value="{{ courseID }}" />
-          {% endif %}
-          <input hidden="true" name="pickachu" value="{{chk}}" />
+          <input hidden="true" id="pickachu" name="pickachu" value="1" />
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -286,20 +138,20 @@
 
           <div class="form-group dropdown show">
             <label for=""> <strong>Select Resource type to add:</strong> </label>
-            <select  name="rSelected" class ="btn btn-secondary dropdown-toggle">
+            <select name="rSelected" class="btn btn-secondary dropdown-toggle">
               <option class="dropdown-item" value="P">Picture</option>
               <option class="dropdown-item" value="V">Videos</option>
             </select>
           </div>
 
           <div class="form-group">
-              <label>Resources</label>
-              <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter">
+            <label>Resources</label>
+            <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter">
           </div>
-            <input  type="number" hidden="true" name="orderid" value="{{ topOrdLen }}">
+          <input type="number" hidden="true" name="orderid" value="{{ topOrdLen }}">
 
           <input hidden="true" name="resId" value=1 />
-          <input hidden="true" name="Fkey" value="{{ topicID }}" >
+          <input hidden="true" name="Fkey" value="{{ topicID }}">
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary">Submit</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -309,110 +161,109 @@
 
     </div>
   </div>
+</div>
+
+
+
+
+<div class="modal fade" id="addresource2" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
+          <!--  -->
+          {% csrf_token %}
+
+
+          <div class="form-group dropdown show">
+            <label for=""> <strong>Select Resource type to add:</strong> </label>
+            <select name="rSelected" class="btn btn-secondary dropdown-toggle">
+              <option class="dropdown-item" value="Q">Questions</option>
+              <option class="dropdown-item" value="T">Texts</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Resources</label>
+            <input type="text" name="title" id="" placeholder="enter question/title">
+            <textarea rows="10" cols="6" name="summary" class="form-control" aria-describedby="emailHelp" placeholder="Enter Answer/decriptions"></textarea>
+
+          </div>
+          <input type="number" hidden="true" name="orderid" value="{{ topOrdLen }}">
+          <input name="resId" value=0 />
+          <input hidden="true" name="Fkey" value="{{ topicID }}">
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
   </div>
+</div>
 
 
 
 
-  <div class="modal fade" id="addresource2" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
+<!-- modal for mcq resources -->
 
-            <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
+<div class="modal fade" id="addresource3" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
 
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
-              <!--  -->
-              {% csrf_token %}
+        <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
 
-
-              <div class="form-group dropdown show">
-                <label for=""> <strong>Select Resource type to add:</strong> </label>
-                <select  name="rSelected" class ="btn btn-secondary dropdown-toggle">
-                  <option class="dropdown-item" value="Q">Questions</option>
-                  <option class="dropdown-item" value="T">Texts</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                  <label>Resources</label>
-                  <input type="text" name="title" id="" placeholder="enter question/title">
-                  <textarea rows="10" cols="6" name="summary" class="form-control" aria-describedby="emailHelp"
-                  placeholder="Enter Answer/decriptions"></textarea>
-
-              </div>
-              <input type="number" hidden="true"  name="orderid" value="{{ topOrdLen }}">
-              <input  name="resId" value=0 />
-              <input hidden="true" name="Fkey" value="{{ topicID }}" >
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </form>
-          </div>
-
-        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
+          <!--  -->
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label>MCQ</label>
+            <input type="text" name="title" id="" placeholder="enter question/title">
+            <input type="text" name="A" placeholder="Enter option A">
+            <input type="text" name="B" placeholder="Enter option B">
+            <input type="text" name="C" placeholder="Enter option C">
+            <input type="text" name="D" placeholder="Enter option D">
+          </div>
+
+          <div class="form-group dropdown show">
+            <label for=""> <strong>Select the correct option:</strong> </label>
+            <select name="rSelected" class="btn btn-secondary dropdown-toggle">
+              <option class="dropdown-item" value="A">A</option>
+              <option class="dropdown-item" value="B">B</option>
+              <option class="dropdown-item" value="A">C</option>
+              <option class="dropdown-item" value="B">D</option>
+            </select>
+          </div>
+
+          <input type="number" hidden="true" name="orderid" value="{{ topOrdLen }}">
+          <input name="resId" value=2 />
+          <input hidden="true" name="Fkey" value="{{ topicID }}">
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </form>
       </div>
 
-
-
-
-      <!-- modal for mcq resources -->
-
-      <div class="modal fade" id="addresource3" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-    
-                <h5 class="modal-title" id="SignUpModal">Add Resources</h5>
-    
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form method="POST" action="{% url 'addR' %}" enctype="multipart/form-data">
-                  <!--  -->
-                  {% csrf_token %}
-    
-                  <div class="form-group">
-                      <label>MCQ</label>
-                      <input type="text" name="title" id="" placeholder="enter question/title">
-                      <input type="text" name="A" placeholder="Enter option A">
-                      <input type="text" name="B" placeholder="Enter option B">
-                      <input type="text" name="C" placeholder="Enter option C">
-                      <input type="text" name="D" placeholder="Enter option D">
-                  </div>
-    
-                  <div class="form-group dropdown show">
-                    <label for=""> <strong>Select the correct option:</strong> </label>
-                    <select  name="rSelected" class ="btn btn-secondary dropdown-toggle">
-                      <option class="dropdown-item" value="A">A</option>
-                      <option class="dropdown-item" value="B">B</option>
-                      <option class="dropdown-item" value="A">C</option>
-                      <option class="dropdown-item" value="B">D</option>
-                    </select>
-                  </div>
-
-                  <input type="number" hidden="true"  name="orderid" value="{{ topOrdLen }}">
-                  <input  name="resId" value=2 />
-                  <input hidden="true" name="Fkey" value="{{ topicID }}" >
-                  <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  </div>
-                </form>
-              </div>
-    
-            </div>
-          </div>
-          </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- ended modal for resources -->
@@ -420,44 +271,162 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{% static 'js/reorder.js' %}"></script>
+
 <script>
-
-function capmodal(id)
-{
-  var v = document.getElementById(id).value;
-  document.getElementById('setcontent').innerHTML = v;
+function showLoader(){
+    document.getElementById('setbuttons').style = "display:none;";
+    document.getElementById('justforcourse').style = "display:none;";
+    document.getElementById('justforres').style = "display:none;";
+    document.getElementById('showtable').style = "display:none;";
+    document.getElementById('loader').style = "display:block;";
+    setTimeout(function(){ 
+      document.getElementById('setbuttons').style = "display:block;";
+    document.getElementById('justforcourse').style = "display:block;";
+    document.getElementById('justforres').style = "display:block;";
+    document.getElementById('showtable').style = "display:block;";
+    document.getElementById('loader').style = "display:none;";
+     }, 3000);
+  
 }
-
-function func()
-{
-  var d = document.getElementsByClassName('ord');
-  var name = '';
-  for(var i=0;i<d.length;i++)
-  {
-    console.log(d[i].innerHTML);
-    name += String(d[i].innerHTML).trim();
-  }
-  document.getElementById('setvalue').value = name;
-}
-
-var fixHelperModified = function(e, tr) {
-    var $originals = tr.children();
-    var $helper = tr.clone();
-    $helper.children().each(function(index) {
-        $(this).width($originals.eq(index).width())
-    });
-    return $helper;
-},
-    updateIndex = function(e, ui) {
-        $('td.index', ui.item.parent()).each(function (i) {
-            $(this).html(i + 1);
+  
+	
+  function knowtopics(id) {
+    showLoader();
+    var content = id;
+    var courseContent = `
+    <table class="grid table table-stripped table-dark table-hover">
+        <thead>
+        
+        </thead>
+        <tbody>`
+    ;
+    var tcontent =
+      `<table id="sort" class="grid table table-striped table-dark table-hover" title="Magic Table">
+    <thead>
+            <tr><th class="index" scope="col">Topic Title</th><th>Description</th></tr>
+    </thead>
+        <tbody>`;
+    console.log(content);
+    $.ajax({
+      url: "{% url 'top' %}",
+      data: {
+        'content': content
+      },
+      dataType: 'json',
+      success: function (response) {
+        var qsjson = JSON.parse(response['qsjson']);
+        var csjson = JSON.parse(response['csjson']);
+        $.each(csjson,function(){
+        if(this.pk==id){
+          console.log("okookoko");
+          courseContent += `
+          <tr>
+            <td style = "background:#28a745"; >${this.fields.title}</td>
+            <tr>
+            `;
+         }else{
+          courseContent += `
+          <tr>
+            <td onclick="knowtopics(${this.pk})" >${this.fields.title}</td>
+            <tr>
+            `;
+         }
         });
-    };
+        $.each(qsjson, function () {
+          console.log('ok');
+          
+          tcontent +=
+            `<tr>
+                <td hidden="true" class="index" scope="row">  
+                </td>
+                <td  class="ord" style="display:none">
+                  ${this.fields.oid}
+                </td> 
+                <td>
+                  ${this.fields.title}
+                </td> 
+                <td>
+                  <button class="btn btn-success" onclick="capmodal(${this.pk})" data-toggle="modal" data-target="#topicdesc">View</button>
+                  <input id="${this.pk}" hidden="true" value="${this.fields.desc}" />
+                </td>
+                <td>
+                  <button class="btn btn-success" onclick="showcontent(${this.pk})" type="submit">Know Content</button>
+                </td>
+                <td>
+                  <span class="navbar-toggler-icon"></span>
+                </td>
+              </tr>`;
+        });
+        tcontent += `</tbody></table>`;
+        courseContent += `</tbody></table>`
 
-$("#sort tbody").sortable({
-    helper: fixHelperModified,
-    stop: updateIndex
-}).disableSelection();
+        $.get("{% static 'css/reorder.css' %}", function (css) {
+          $('<style type="text/css"></style>')
+            .html(css)
+            .appendTo("head");
+        });
+        var empty = '';
+        $("#showtable").html(tcontent);
+        $("#justforcourse").html(courseContent);
+        $("#justforres").html(empty);
+        document.getElementById('justforcourse').style = "display:block;"
+        document.getElementById('justforres').style = "display:none;"
+
+        $.getScript("https://code.jquery.com/jquery-1.12.4.js", function () {
+          console.log("Script-1 loaded");
+          $.getScript("https://code.jquery.com/ui/1.12.1/jquery-ui.js", function () {
+            console.log("Script-2 loaded");
+            $.getScript("{% static 'js/reorder.js' %}", function () {
+              console.log("Script-3 loaded");
+            });
+          });
+        });
+        var buttons =
+          `<button class="btn btn-success" data-toggle="modal" data-target="#addcourse">Add Topic</button><button id="reorder" class="btn btn-success">Re-Order</button><input type="text" hidden="true" name="setvalue" id="setvalue" value="initial value" /><input type="text" hidden="true" id="idcourse" value="${content}" />`;
+        $("#setbuttons").html(buttons);
+        $.getScript("{% static 'js/creator-reorder.js' %}", function () {
+          console.log("reorder working!");
+        });
+      }
+    });
+  }
+</script>
+
+<script>
+  function courseAdd() {
+    var title = document.getElementById('ctitle').value;
+    var desc = document.getElementById('cdesc').value;
+    var cimage = document.getElementById('thmb').files[0];
+    var pickachu = document.getElementById('pickachu').value;
+    //formdata = new FormData(); 
+    //var file = this.files[0];
+    console.log(cimage);
+    console.log(title);
+    console.log(desc);
+    console.log(pickachu);
+    $.ajax({
+      url: "{% url 'addc' %}",
+      type: 'GET',
+      data: {
+        'title': title,
+        'desc': desc,
+        'image': cimage,
+        // image not upoloading
+        'pickachu': pickachu
+      },
+      dataType: 'text',
+      success: function (response) {
+        alert(response);
+      }
+
+    });
+  }
+
+  function capmodal(id) {
+    var v = document.getElementById(String(id)).value;
+    document.getElementById('setcontent').innerHTML = v;
+  }
 </script>
 
 {% endblock %}

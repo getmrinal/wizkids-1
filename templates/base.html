@@ -32,6 +32,8 @@
   <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
   <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/formstyle.css' %}">
   <style>
   .navbar-toggler-icon {
     background-image: url(https://mdbootstrap.com/img/svg/hamburger1.svg?color=fff);
@@ -40,8 +42,20 @@
 </head>
 
 <body>
+    <!-- the loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#f2d026" />
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+  <!-- loader ends -->
+    <!-- this is the parent navbar extended to each page that inherit this page as a template -->
+    <!-- navbar starts -->
+  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark 
+  {% if magic %}
+  sticky-top"
+  {% else %}
+ ftco-navbar-light"
 
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+  {% endif %} id="ftco-navbar">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/icon2.png' %}" height="14%" width="14%" />hizKids</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav"
@@ -51,11 +65,14 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          {% if user.is_authenticated and currentUser == 1 %}
+          
           <li class="nav-item"><a href="{% url 'creator' %}" class="nav-link">Creator</a></li>
-          {% endif %}
+          
           <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="{% url 'course' %}" class="nav-link">Courses</a></li>
+
+          <!-- if the user is logged in then we are gonna hide the login and signup button  -->
+          <!-- and show the logout button -->
           {% if user.is_authenticated %}
           <li class="nav-item"><a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">Logout</a></li>
           <form id="logout" method="POST" action="{% url 'logout' %}">
@@ -63,8 +80,9 @@
             <input type="hidden" />
           </form>
           {% else %}
-          <li class="nav-item"><a href="{% url 'login' %}" data-toggle="modal" data-target="#myM" class="nav-link">Sign-In</a></li>
-          <li class="nav-item"><a href="{% url 'signup' %}" data-toggle="modal" data-target="#myModal" class="nav-link">Sign-Up</a></li>
+          <li class="nav-item"><a style="padding-right:0px;"  href="{% url 'login' %}" data-toggle="modal" data-target="#myM" class="nav-link">SignIn<span style="color:#313233; font-weight: bold">&nbsp;/&nbsp;</span></a></li>
+          
+          <li class="nav-item"><a style="padding-left:0px;"  href="{% url 'signup' %}" data-toggle="modal" data-target="#myModal" class="nav-link">SignUp</a></li>
           {% endif %}
           <li class="nav-item"><a href="#foot" class="nav-link">Contact</a></li>
         </ul>
@@ -72,6 +90,7 @@
     </div>
   </nav>
   <!-- END nav -->
+  <!-- navbar ends -->
   {% block content %}
 
 
@@ -80,47 +99,44 @@
 
   {% endblock %}
 
-  <footer class="footer" id="foot">
+
+  <!-- this is the footer of the whole webapp every page inside the webapp inherits the footer from here -->
+  <!-- footer starts -->
+  <footer class="footer  navbar-fixed-bottom" id="foot">
     <div class="container">
-      <div class="row mb-5">
-
-
-
-
-        <div class="col-md-6 col-lg-4">
+      <div class="row">
+          <!-- <h3 class="heading-section" style="text-align:initial">Contact Info</h3> -->
+        <div class="col-md-6 col-lg-6">
           <div class="block-23">
-            <h3 class="heading-section">Contact Info</h3>
+              <h3 class="heading-section" style="text-align:initial">Contact Info </h3>
             <ul>
-              <li><span class="icon icon-map-marker"></span><span class="text">Chalkstreet, HSR
-                  Layout,Banglore,Karnataka,India</span></li>
               <li><a href="#"><span class="icon icon-phone"></span><span class="text">+91-912345678</span></a></li>
               <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@Chalkstreet.com</span></a></li>
-              <li><span class="icon icon-clock-o"></span><span class="text">Monday &mdash; Friday 8:00am - 5:00pm</span></li>
             </ul>
           </div>
         </div>
-
-        <div class="col-md-6 text-center">
-          <p>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            &copy;<script>document.write(new Date().getFullYear());</script> Chalkstreet All rights reserved
-
-          </p>
-        </div>
+        <div class="col-md-6 col-lg-6">
+            <div class="block-23">
+              <h3 class="heading-section" style="text-align:initial">We're availabe </h3>
+              <ul>
+                  <li><span class="icon icon-clock-o"></span><span class="text">Monday &mdash; Friday 8:00am - 5:00pm</span></li>
+                  <li><span class="icon icon-map-marker"></span><span class="text">Chalkstreet, HSR
+                      Layout,Banglore,Karnataka,India</span></li>
+              </ul>
+            </div>
+          </div>
       </div>
+      <p style="text-align:center;">  &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+       </p>
+      
     </div>
   </footer>
+<!-- footer ends -->
 
-  <!-- loader -->
-  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-      <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#f2d026" />
-      <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
-  <!-- modal started -->
+  
+
+<!-- modal started for login the user -->
 
   <div class="modal fade" id="myM" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -135,28 +151,27 @@
           <form method="POST" action="{% url 'login' %}">
             <!--  -->
             {% csrf_token %}
-            <div class="form-group">
-              <label>Username</label>
-              <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp"
+            <div class="form-style-8">
+            <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp"
                 placeholder="Enter your username">
-            </div>
-
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" name="pass" class="form-control" id="passwordLogin" placeholder="Password">
+            <input type="password" name="pass" class="form-control" id="passwordLogin" placeholder="Password">
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+              <button class="btn btn-primary">Sign-Up</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
           </form>
         </div>
       </div>
     </div>
   </div>
 
+<!-- modal ends for login the user -->
 
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- modal starts for signUP the user -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -170,12 +185,13 @@
             <!--  -->
             {% csrf_token %}
 
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Username</label>
               <input type="text" name="username" class="form-control" id="signupUser" aria-describedby="emailHelp"
                 placeholder="Enter your desired username">
+                <p style="display:none;"  class="invalid-feedback" id="wrong">Username already taken!</p>
             </div>
-            <div class="form-group">
+            <div class="form-group ">
               <label>Parent Name</label>
               <input type="text" name="parent" class="form-control" id="userParent" aria-describedby="emailHelp"
                 placeholder="Enter Parent Name">
@@ -202,10 +218,34 @@
             <div class="form-group">
               <label>Image</label>
               <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter your desired pic">
+            </div> -->
+
+
+            <div class="form-style-8" style="margin-bottom: 1em;">
+              <input type="text" name="username" class="form-control" id="signupUser" aria-describedby="emailHelp"
+                placeholder="Enter your desired username">
+                <p style="display:none;"  class="invalid-feedback" id="wrong">Username already taken!</p>
+
+                <input type="text" name="parent" class="form-control" id="userParent" aria-describedby="emailHelp"
+                placeholder="Enter Parent Name">
+          
+              <input type="text" name="child" class="form-control" id="userChild" aria-describedby="emailHelp"
+              placeholder="Enter Child Name">
+              
+              <input type="email" name="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp"
+                placeholder="Enter email">
             </div>
 
+            <div class="form-style-8">
+              <input type="password" name="pass1" class="form-control" id="Password1" placeholder="Password">
+              <input type="password" name="pass2" class="form-control" id="Password2" placeholder="Confirm Password">
+            </div>
+
+            <div class="form-style-8" style="margin-top:1em">
+              <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter your desired pic">
+            </div>
             <div class="modal-footer">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button id="signupSub" type="submit" class="btn btn-primary">Submit</button>
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
           </form>
@@ -217,7 +257,7 @@
 
 
 
-
+<!-- modal ends for signing up the user -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -226,7 +266,7 @@
     crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="{% static 'js/myjs.js' %}"></script>
+   
 
 
   <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -243,6 +283,7 @@
   <script src="{% static 'js/aos.js' %}"></script>
   <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
   <script src="{% static 'js/main.js' %}"></script>
+
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -265,6 +306,36 @@
     }, 10); // 5000 to load it after 5 seconds from page load
   });
 </script>
+
+<!-- for username check -->
+<script>
+  $("#signupUser").change(function () {
+    var username = $(this).val();
+    console.log(username);
+    $.ajax({
+      url: '/validate_username/',
+      data: {
+        'username': username
+      },
+      dataType: 'json',
+      success: function (data) {
+        if (data.is_taken) {
+          console.log(username);
+            $('#signupUser').addClass('is-invalid');
+            $('#signupUser').removeClass('is-valid');
+            $('#wrong').attr('style','display:block');
+        }else{
+          $('#signupUser').addClass('is-valid');
+          $('#signupUser').removeClass('is-invalid');
+          $('#wrong').attr('style','display:none');
+        }
+      }
+    });
+
+  });
+</script>
+
+
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-127453754-1"></script>

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
+from django.core import serializers
 from django.http import HttpResponse
 from django.db.models import Q
 # Create your views here.
@@ -11,62 +12,104 @@ import json
 from django.core.files.storage import FileSystemStorage
 
 
+from django.contrib.auth.models import User
+from django.http import JsonResponse
+
+def validate_username(request):
+    username = request.GET.get('ids', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(data)
+
+
 def creator(request):
     # displaying the course page!!!
     c = course.objects
     print(c.all)
-    if request.user.id == 1 or request.user.id  == 42:
-        return render(request,'creator.html',{'keys':c, 'chk':3})
+    if request.user.id == 42 or request.user.id == 1:
+        return render(request,'creator.html',{'keys':c, 'chk':3,'magic':1})
     else:
         return redirect('accd')
 
-def topics(request):
-    ids = request.GET['foreignKey']
+def topics(request): #change
+    ids = request.GET.get('content', None)
+    
     tops = topic.objects.filter(cid=ids).order_by('oid')
+    coursetitle = course.objects.all()
     l = len(tops)+1
     #todo : order id hidden and prefillled
     global TOPICS
     TOPICS = tops
     global CID
     CID = ids
-    return render(request,'creator.html',{'keys':tops,'chk':1,'courseID':ids,'ordLen':l})
+    qs_json = serializers.serialize('json', tops)
+    cs_json = serializers.serialize('json',coursetitle)
+    finalJson = {
+        'qsjson' : qs_json,
+        'csjson' : cs_json
+    }
+    # final = serializers.serialize('json',finalJson)
+    final = json.dumps(finalJson)
+    # print(cs_json)
+    # #finalJson = qs_json.concat(cs_json)
+    # finalJson = {
+    #     'data1' : qs_json,
+    #     'data2' : cs_json
+    # }
+    return HttpResponse(final, content_type='application/json')
 
-def resource(request):
-    ids = request.GET['foreignKey']
+def resource(request): #change
+    ids = request.GET.get('content', None)
     con = content.objects.filter(tid=ids).order_by('oid')
+    tops = topic.objects.order_by('oid').all()
+
     l = len(con)+1
     global TID
     TID  = ids
     #todo : order id hidden and prefillled
-    return render(request,'creator.html',{'keys':con,'chk':2,'topicID':ids,'topOrdLen':l})
+    qs_json = serializers.serialize('json', con)
+    ts_json = serializers.serialize('json',tops)
+    finalJson = {
+        'rsjson':qs_json,
+        'tsjson':ts_json
+    }
+    final = json.dumps(finalJson)
+    return HttpResponse(final, content_type='application/json')
 
-def addcourse(request):
-    temp = request.POST['pickachu']
-    myfile = request.FILES['thmb']
-    fs = FileSystemStorage()
-    filename = fs.save(myfile.name, myfile)
-    uploaded_file_url = fs.url(filename)
-    if temp == '1':
-        naam = course.objects.filter(ids=request.POST['getcid'])
-        tops = topic.objects.filter(cid=request.POST['getcid'])
+def addcourse(request): #change in progress
+    temp = request.GET.get('pickachu', None)
+    #myfile = request.FILES['thmb']
+    # myfile = request.FILES.get('image', None)
+    # print("myfile", myfile)
+    print("temp", temp)
+    print("title", request.GET.get('title', None))
+    print("desc", request.GET.get('desc', None))
+    # fs = FileSystemStorage()
+    # filename = fs.save(myfile.name, myfile)
+    # uploaded_file_url = fs.url(filename)
+    return HttpResponse("done!")
+    # if temp == '2':
+    #     naam = course.objects.filter(ids=request.POST['getcid'])
+    #     tops = topic.objects.filter(cid=request.POST['getcid'])
 
-        details = topic(cid=naam[0],title=request.POST['ctitle'],desc=request.POST['cdesc'],oid=request.POST['orderid'],image=uploaded_file_url)
-        details.save()
-        oid = int(request.POST['orderid'])+1
-        return render(request,'creator.html',{'keys':tops, 'chk':1, 'courseID':request.POST['getcid'],'ordLen':oid})
-    else:
-        details = course(title=request.POST['ctitle'],desc=request.POST['cdesc'],image=uploaded_file_url)
-        details.save()
-        return creator(request)
+    #     details = topic(cid=naam[0],title=request.POST['ctitle'],desc=request.POST['cdesc'],oid=request.POST['orderid'],image=uploaded_file_url)
+    #     details.save()
+    #     oid = int(request.POST['orderid'])+1
+    #     return render(request,'creator.html',{'keys':tops, 'chk':1, 'courseID':request.POST['getcid'],'ordLen':oid})
+    # else:
+    #     details = course(title=request.GET.get('title', None),desc=request.GET.get('desc', None),image=uploaded_file_url)
+    #     details.save()
+    #     return HttpResponse('Course Added!')
 
-def reorder(request):
+def reorder(request): #change
     global CID,TOPICS
     tops = TOPICS
-    s = request.GET['setvalue']
+    s = request.GET.get('content', None)
     naam = course.objects.filter(ids=CID)
     recurr(0,s,naam[0])
     print(s)
-    return render(request, 'creator.html', {'keys':tops, 'chk':1, 'courseID':CID})
+    return HttpResponse(CID)
 
 def recurr(i,s,naam):
     if(i == len(s)):

@@ -4,6 +4,30 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+/* for preloder */
+#loader-img{
+  margin: 0 auto;
+  display: block;
+  }
+   
+  #loaders{
+      width: 40%;
+      margin: 0 auto;
+      padding: 3em;
+      text-align: center;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+  }
+   
+  .border{border: 3px solid #fff;     border-radius: 5px;}
+/* preloader ends */
+
+
+ 
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -4436,7 +4460,10 @@ button.close {
   padding: 1rem;
   border-bottom: 1px solid #e9ecef;
   border-top-left-radius: 0.3rem;
-  border-top-right-radius: 0.3rem; }
+  border-top-right-radius: 0.3rem;
+  background: #28a745;
+  opacity: 0.7;
+ }
   .modal-header .close {
     padding: 1rem;
     margin: -1rem -1rem -1rem auto; }
@@ -7292,15 +7319,20 @@ h1, h2, h3, h4, h5,
       top: 0;
       position: relative; } }
   .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
-    font-size: 14px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    font-size: medium;
+    padding-top: 20px;
+    padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    color: #f0f0f0;
-    opacity: 1 !important; }
+    color: #fff;
+    opacity: 1 !important; 
+    font-weight: 500;
+  }
+    
     .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
-      color: #fff; }
+      color: #fff;
+      font-size: larger;
+    }
     @media (max-width: 991.98px) {
       .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
         padding-top: 10px;
@@ -7358,6 +7390,7 @@ h1, h2, h3, h4, h5,
     text-transform: uppercase;
     font-size: 16px;
     letter-spacing: .1em; }
+
   .ftco-navbar-light.scrolled {
     position: fixed;
     right: 0;
@@ -7365,7 +7398,7 @@ h1, h2, h3, h4, h5,
     top: 0;
     margin-top: -130px;
     background: #fff !important;
-    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); }
     .ftco-navbar-light.scrolled .nav-item.active > a {
       color: #79ccab !important; }
@@ -7392,9 +7425,17 @@ h1, h2, h3, h4, h5,
       font-size: 16px;
       letter-spacing: .1em; }
     .ftco-navbar-light.scrolled .nav-link {
-      padding-top: 0.9rem !important;
-      padding-bottom: 0.9rem !important;
-      color: #000 !important; }
+      padding-top: 0.6rem !important;
+      padding-bottom: 0.6rem !important;
+      color: #000 !important;
+      font-size: medium !important ; 
+      font-weight: 500;
+    }
+
+    .ftco-navbar-light.scrolled .nav-link:hover{
+      font-size: larger !important;
+    }
+
       .ftco-navbar-light.scrolled .nav-link.active {
         color: #79ccab !important; }
     .ftco-navbar-light.scrolled.awake {
@@ -7748,7 +7789,9 @@ textarea.form-control {
 
 .footer {
   background: #404040;
-  padding: 8em 0;
+  /* padding: 8em 0; */
+  padding-top:4em;
+  padding-bottom: 1em;
   color: #fff; }
   .footer .heading-section {
     font-size: 20px;

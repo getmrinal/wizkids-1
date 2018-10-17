@@ -32,7 +32,7 @@ def home(request):
 
 def show_course(request):
 	crs = course.objects
-	return render(request, 'index.html', {'crs':crs})
+	return render(request, 'index.html', {'crs':crs,'navbar':'1'})
 
 def set_val(request):
 	if request.method == "GET":

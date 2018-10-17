@@ -14,13 +14,13 @@ function Sopacity (){
       setOL.addEventListener('mouseover',function(){
         if(!expanded){
           setOL.style.opacity = 0.7;
-          console.log(expanded);
+          // console.log(expanded);
         }
       })
       setOR.addEventListener('mouseover',function(){
         if(!expanded){
           setOR.style.opacity = 0.7;
-          console.log(expanded);
+          // console.log(expanded);
         }
       })
       setOL.addEventListener('mouseleave',function(){
@@ -110,7 +110,7 @@ window.addEventListener('scroll',function(){
 window.onload = function(){
   if (!expanded)
   {
-    console.log(expanded);
+    // console.log(expanded);
      Sopacity();
 }
 }

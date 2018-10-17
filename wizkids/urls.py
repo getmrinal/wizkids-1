@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
+from creator import views as creatorViews
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +31,12 @@ urlpatterns = [
     path('accd/',views.access_denied, name='accd'),
     path('listcourse/setvalue/',views.set_val, name='setvalue'),
     path('listcourse/',views.show_course, name='listc'),
+
+    url(r'^/validate_username/$', creatorViews.validate_username, name='validate_username')
     
     # path('test/',views.show_test,name='learn')
+    # all down is for pass reset
+    # the previously added URL definitions
+    
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
