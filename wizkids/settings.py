@@ -86,10 +86,10 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'chalk',
-    'HOST': 'chalkstudio.cvn4jmb3rmul.us-east-1.rds.amazonaws.com',
+    'HOST': 'mrinalchalk.cvn4jmb3rmul.us-east-1.rds.amazonaws.com',
     'PORT': '3306',
-    'USER': 'django',
-    'PASSWORD': 'django1234',
+    'USER': 'mrinal',
+    'PASSWORD': 'django1234'
 }
 }
 

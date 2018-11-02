@@ -185,42 +185,6 @@
             <!--  -->
             {% csrf_token %}
 
-            <!-- <div class="form-group">
-              <label>Username</label>
-              <input type="text" name="username" class="form-control" id="signupUser" aria-describedby="emailHelp"
-                placeholder="Enter your desired username">
-                <p style="display:none;"  class="invalid-feedback" id="wrong">Username already taken!</p>
-            </div>
-            <div class="form-group ">
-              <label>Parent Name</label>
-              <input type="text" name="parent" class="form-control" id="userParent" aria-describedby="emailHelp"
-                placeholder="Enter Parent Name">
-            </div>
-            <div class="form-group">
-              <label>Child Name</label>
-              <input type="text" name="child" class="form-control" id="userChild" aria-describedby="emailHelp"
-                placeholder="Enter Child Name">
-            </div>
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" name="email" class="form-control" id="signUpEmail" aria-describedby="emailHelp"
-                placeholder="Enter email">
-            </div>
-
-            <div class="form-group">
-              <label for="pass1">Password</label>
-              <input type="password" name="pass1" class="form-control" id="Password1" placeholder="Password">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Confirm Password</label>
-              <input type="password" name="pass2" class="form-control" id="Password2" placeholder="Password">
-            </div>
-            <div class="form-group">
-              <label>Image</label>
-              <input type="file" name="myfile" class="form-control " id="imageUser" placeholder="Enter your desired pic">
-            </div> -->
-
-
             <div class="form-style-8" style="margin-bottom: 1em;">
               <input type="text" name="username" class="form-control" id="signupUser" aria-describedby="emailHelp"
                 placeholder="Enter your desired username">
@@ -308,12 +272,12 @@
 </script>
 
 <!-- for username check -->
-<script>
+<script type="text/javascript">
   $("#signupUser").change(function () {
     var username = $(this).val();
     console.log(username);
     $.ajax({
-      url: '/validate_username/',
+      url: {% url 'validate' %},
       data: {
         'username': username
       },

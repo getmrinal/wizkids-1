@@ -32,7 +32,7 @@ urlpatterns = [
     path('listcourse/setvalue/',views.set_val, name='setvalue'),
     path('listcourse/',views.show_course, name='listc'),
 
-    url(r'^/validate_username/$', creatorViews.validate_username, name='validate_username')
+    url(r'^/validate_username/$', creatorViews.validate_username, name='validate')
     
     # path('test/',views.show_test,name='learn')
     # all down is for pass reset

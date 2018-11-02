@@ -142,8 +142,9 @@
   z-index: 2;
   width: 100%;
   font-size: 3.5vw;
-  color: white;
+  color: black;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 1;
 }
 @media screen and (max-width: 760px) {
   .strip__title {

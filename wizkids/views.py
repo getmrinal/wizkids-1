@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import HttpResponse
 from accounts.models import account
-from creator.models import course, topic
+from creator.models import months as  course,weeks as topic
 from django.http.request import QueryDict
 # from django.contrib.admin.decorators import register
 
