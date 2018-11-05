@@ -3,6 +3,7 @@
 {% block content %}
 
 {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 <div class="container" id="loader" style="display:none; width:100%; text-align:center"  >
   <img  src="{% static 'images/Preloader_7.gif' %}" alt="">
 </div>
@@ -339,7 +340,7 @@ function showLoader(){
           tcontent +=
             `<tr>
               
-                <td  class="ord" style="display:block; text-align:center">
+                <td  class="ord" style="display:block; text-align:center  ">
                   ${this.fields.oid}
                 </td> 
                 <td>
