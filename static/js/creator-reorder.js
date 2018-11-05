@@ -1,6 +1,7 @@
 var name;
 
 document.getElementById('reorder').onclick = function () {
+  showLoader();
   var d = document.getElementsByClassName('ord');
   name = '';
   for (var i = 0; i < d.length; i++) {
@@ -73,6 +74,7 @@ function OnSuccess() {
 }
 
 function showcontent(id) {
+  showLoader();
   console.log(id);
   var topicContent = `
   <table class="grid table table-stripped table-dark table-hover">

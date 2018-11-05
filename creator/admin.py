@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import course
-from .models import topic
+from .models import months
+from .models import weeks
 from .models import content
 
 # Register your models here.
 
-admin.site.register(course)
-admin.site.register(topic)
+admin.site.register(months)
+admin.site.register(weeks)
 admin.site.register(content)

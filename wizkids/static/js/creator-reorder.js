@@ -73,7 +73,7 @@ function OnSuccess() {
   // });
 }
 
-function showcontent(id) {
+function showcontent(id,cid) {
   showLoader();
   console.log(id);
   var topicContent = `
@@ -90,7 +90,8 @@ function showcontent(id) {
   $.ajax({
     url: "res",
     data: {
-      'content': id
+      'content': id,
+      'cid':cid
     },
     dataType: 'json',
     success: function (response) {

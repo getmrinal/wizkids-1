@@ -304,7 +304,7 @@ function showLoader(){
     var tcontent =
       `<table id="sort" class="grid table table-striped table-dark table-hover" title="Magic Table">
     <thead>
-            <tr><th class="index" scope="col">Topic Title</th><th>Description</th></tr>
+            <tr><th class="index" scope="col">Weeks </th><th>Description</th></tr>
     </thead>
         <tbody>`;
     console.log(content);
@@ -338,9 +338,8 @@ function showLoader(){
           
           tcontent +=
             `<tr>
-                <td hidden="true" class="index" scope="row">  
-                </td>
-                <td  class="ord" style="display:none">
+              
+                <td  class="ord" style="display:block; text-align:center">
                   ${this.fields.oid}
                 </td> 
                 <td>
@@ -351,7 +350,7 @@ function showLoader(){
                   <input id="${this.pk}" hidden="true" value="${this.fields.desc}" />
                 </td>
                 <td>
-                  <button class="btn btn-success" onclick="showcontent(${this.pk})" type="submit">Know Content</button>
+                  <button class="btn btn-success" onclick="showcontent(${this.pk},${content})" type="submit">Know Content</button>
                 </td>
                 <td>
                   <span class="navbar-toggler-icon"></span>

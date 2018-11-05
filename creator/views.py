@@ -4,7 +4,7 @@ from django.core import serializers
 from django.http import HttpResponse
 from django.db.models import Q
 # Create your views here.
-from .models import course,topic,content
+from .models import months,weeks,content
 TID = None
 TOPICS = None
 CID = None
@@ -25,7 +25,7 @@ def validate_username(request):
 
 def creator(request):
     # displaying the course page!!!
-    c = course.objects
+    c = months.objects
     print(c.all)
     if request.user.id == 42 or request.user.id == 1:
         return render(request,'creator.html',{'keys':c, 'chk':3,'magic':1})
@@ -35,8 +35,8 @@ def creator(request):
 def topics(request): #change
     ids = request.GET.get('content', None)
     
-    tops = topic.objects.filter(cid=ids).order_by('oid')
-    coursetitle = course.objects.all()
+    tops = weeks.objects.filter(cid=ids).order_by('oid')
+    coursetitle = months.objects.all()
     l = len(tops)+1
     #todo : order id hidden and prefillled
     global TOPICS
@@ -61,8 +61,9 @@ def topics(request): #change
 
 def resource(request): #change
     ids = request.GET.get('content', None)
+    cid = request.GET.get('cid',None)
     con = content.objects.filter(tid=ids).order_by('oid')
-    tops = topic.objects.order_by('oid').all()
+    tops = weeks.objects.filter(cid=cid).order_by('oid').all()
 
     l = len(con)+1
     global TID
@@ -106,7 +107,7 @@ def reorder(request): #change
     global CID,TOPICS
     tops = TOPICS
     s = request.GET.get('content', None)
-    naam = course.objects.filter(ids=CID)
+    naam = months.objects.filter(ids=CID)
     recurr(0,s,naam[0])
     print(s)
     return HttpResponse(CID)
@@ -114,7 +115,7 @@ def reorder(request): #change
 def recurr(i,s,naam):
     if(i == len(s)):
         return
-    obj = topic.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
+    obj = weeks.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
     obj.oid = i + 1
     i = i + 1
     print(s[i-1], i)
@@ -125,7 +126,7 @@ def recurr(i,s,naam):
 def reorderRes(request):
     s = request.GET['setvalue']
     global TID
-    naam = topic.objects.filter(ids=TID)
+    naam = weeks.objects.filter(ids=TID)
     con = content.objects.filter(tid=TID).order_by('oid')
     l = len(con)+1
     recurrRes(0,s,naam[0])
@@ -147,7 +148,7 @@ def recurrRes(i,s,naam):
 def recurr(i,s,naam):
     if(i == len(s)):
         return
-    obj = topic.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
+    obj = weeks.objects.get(Q(oid=int(s[i])) & Q(cid=naam))
     obj.oid = i + 1
     i = i + 1
     print(s[i-1], i)
@@ -158,7 +159,7 @@ def recurr(i,s,naam):
 def addRes(request):
     temp = request.POST['resId']
     print(temp)
-    naam = topic.objects.filter(ids=request.POST['Fkey'])
+    naam = weeks.objects.filter(ids=request.POST['Fkey'])
     cons = content.objects.filter(tid=request.POST['Fkey'])
     code = request.POST['rSelected']
     if temp=='1':

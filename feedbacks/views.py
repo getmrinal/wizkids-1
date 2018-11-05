@@ -4,7 +4,7 @@ from .models import feedback,subscribe
 from django.contrib.auth.models import User
 from django.contrib import auth
 from .models import tokens
-from creator.models import course as crs,topic as tp,content
+from creator.models import months as crs,weeks as tp,content
 # Create your views here.
 
 D = None

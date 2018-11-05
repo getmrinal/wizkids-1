@@ -5,6 +5,7 @@
 	{% load staticfiles %}
 	{% load mytemplate %}
 	<meta charset="UTF-8" />
+
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Courses</title>
@@ -13,7 +14,8 @@
 	<meta name="author" content="Codrops" />
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Gaegu:300" rel="stylesheet">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	 crossorigin="anonymous">
 	<link rel="shortcut icon" href="{% static 'images/icon2.png' %}">
 	<!-- food icons -->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/organicfoodicons.css' %}" />
@@ -40,7 +42,8 @@
 			<div class="bp-header__main">
 				<h1 class="bp-header__title">Course Content</h1>
 				<nav class="bp-nav">
-					<a class="bp-nav__item bp-icon bp-icon--prev" href="{% url 'course' %}" data-info="Back to Course Page"><span>Back to Course Page</span></a>
+					<a class="bp-nav__item bp-icon bp-icon--prev" href="{% url 'course' %}" data-info="Back to Course Page"><span>Back
+							to Course Page</span></a>
 					<!-- <a class="bp-nav__item bp-icon bp-icon--next" href="" data-info="next Blueprint"><span>Next Blueprint</span></a>
 					<a class="bp-nav__item bp-icon bp-icon--drop" href="http://tympanus.net/codrops/?p=25521" data-info="back to the Codrops article"><span>back to the Codrops article</span></a>
 					<a class="bp-nav__item bp-icon bp-icon--archive" href="http://tympanus.net/codrops/category/blueprints/" data-info="Blueprints archive"><span>Go to the archive</span></a> -->
@@ -48,17 +51,17 @@
 			</div>
 		</header>
 		<button class="action action--open" aria-label="Open Menu"><span class="icon icon--menu"></span></button>
-		
+
 		<nav id="ml-menu" class="menu">
 			<button class="action action--close" aria-label="Close Menu"><span class="icon icon--cross"></span></button>
 			<hr>
 			<div class="menu__wrap">
-				<ul data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All">
+				<ul start="1" data-menu="main" class="menu__level" tabindex="-1" role="menu" aria-label="All">
 					{% for obj in crs.all %}
 					<li class="menu__item" role="menuitem">
 						<a class="menu__link" data-submenu="submenu-{{ obj.ids }}" aria-owns="submenu-1" href="#">
-							{{ obj.title }}
-						</a>
+							Month  {{ obj.title }}
+						</a>		
 					</li>
 					{% endfor %}
 				</ul>
@@ -68,133 +71,132 @@
 					{% for t in c.ids|my_filter:5 %}
 					<li class="menu__item" role="menuitem">
 						<a class="menu__link" href="#" onclick="settopic('{{ t.ids }}')">
-							{{ t.title }}
+							Week {{ t.oid }} {{ t.title }}
 						</a>
-						
+
 						<div hidden="true" id="{{t.ids}}">
 							{% for p in t.ids|filter_content:5 %}
 							<div class="accordion" id="accordionExample">
-									<div class="card" style="border-radius:8px">
-									  <div class="card-header" id="headingOne">
+								<div class="card" style="border-radius:8px">
+									<div class="card-header" id="headingOne">
 										<h5 class="mb-0">
-											
-										  <button id="" class="btn btn-success" type="button" data-toggle="collapse" data-target="#{{p.code}}{{p.conid}}" aria-expanded="true" aria-controls="collapseOne">
-											{{ p.code }} &nbsp; Show Content
-										  </button>
+
+											<button id="" class="btn btn-success" type="button" data-toggle="collapse" data-target="#{{p.code}}{{p.conid}}"
+											 aria-expanded="true" aria-controls="collapseOne">
+												{{ p.code }} &nbsp; Show Content
+											</button>
 										</h5>
-									  </div>
-								  
-									  <div id="{{p.code}}{{p.conid}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-										<div class="card-body" id="{{p.code}}{{p.conid}}{{p.code}}" style="color:black;">
-												<script type="text/javascript">
-													var init = {{ p.data|safe }};
-													var final = JSON.stringify(init);
-													var myjson = JSON.parse(final);
-													if(myjson.code == "Q" || myjson.code == "T")
-													{
-													  document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML = `${myjson.content.question} <br> ${myjson.content.answer}`;
-													}
-													else if(myjson.code == "V" || myjson.code == "P")
-													{
-													  if(myjson.code == "V")
-													  {
-														document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML =`<div class="text-center"><video controls preload="none" width="80%" height="75%" src="${myjson.url}" ></video></div>`
-													  }
-													  else if(myjson.code == "P")
-													  {
-														document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML = `<div class="text-center"><img src="${myjson.url}" width="70%" height="50%" alt="some image" ></div>`
-													  }
-													}
-													else if(myjson.code == "M"){
-													  document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML = `${myjson.ques} `;
-													}
-												  </script>
-										</div>
-									  </div>
 									</div>
-									
-								  </div>
-								  <br>
+
+									<div id="{{p.code}}{{p.conid}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+										<div class="card-body" id="{{p.code}}{{p.conid}}{{p.code}}" style="color:black;">
+											<script type="text/javascript">
+												var init = {{ p.data | safe }};
+												var final = JSON.stringify(init);
+												var myjson = JSON.parse(final);
+												if (myjson.code == "Q" || myjson.code == "T") {
+													document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML =
+														`${myjson.content.question} <br> ${myjson.content.answer}`;
+												} else if (myjson.code == "V" || myjson.code == "P") {
+													if (myjson.code == "V") {
+														document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML =
+															`<div class="text-center"><video controls preload="none" width="80%" height="75%" src="${myjson.url}" ></video></div>`
+													} else if (myjson.code == "P") {
+														document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML =
+															`<div class="text-center"><img src="${myjson.url}" width="70%" height="50%" alt="some image" ></div>`
+													}
+												} else if (myjson.code == "M") {
+													document.getElementById('{{p.code}}{{p.conid}}{{p.code}}').innerHTML = `${myjson.ques} `;
+												}
+											</script>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<br>
 							{% endfor %}
 						</div>
 					</li>
 					<script>
 						var ct;
 						var v;
+
 						function settopic(td) {
-						ct = td;
-						v = ``;
-						v += document.getElementById(String(ct)).innerHTML;
-						
+							ct = td;
+							v = ``;
+							v += document.getElementById(String(ct)).innerHTML;
+
 						}
-						
 					</script>
 					{% endfor %}
 				</ul>
 				{% endfor %}
-				
+
 			</div>
 		</nav>
 		<div class="content">
 			<p class="info">Choose a Course to Continue</p>
 			<!-- Ajax loaded content here -->
-		
+
 		</div>
 	</div>
 	<!-- /view -->
 	<script src="{% static 'js/classie.js' %}"></script>
 	<script src="{% static 'js/dummydata.js' %}"></script>
 	<script src="{% static 'js/main-1.js' %}"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	 crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	 crossorigin="anonymous"></script>
 	<script>
-		
-	(function() {
-		var menuEl = document.getElementById('ml-menu'),
-			mlmenu = new MLMenu(menuEl, {
-				// breadcrumbsCtrl : true, // show breadcrumbs
-				// initialBreadcrumb : 'all', // initial breadcrumb text
-				backCtrl : false, // show back button
-				// itemsDelayInterval : 60, // delay between each menu item sliding animation
-				onItemClick: loadDummyData // callback: item that doesn´t have a submenu gets clicked - onItemClick([event], [inner HTML of the clicked item])
-			});
+		(function () {
+			var menuEl = document.getElementById('ml-menu'),
+				mlmenu = new MLMenu(menuEl, {
+					// breadcrumbsCtrl : true, // show breadcrumbs
+					// initialBreadcrumb : 'all', // initial breadcrumb text
+					backCtrl: false, // show back button
+					// itemsDelayInterval : 60, // delay between each menu item sliding animation
+					onItemClick: loadDummyData // callback: item that doesn´t have a submenu gets clicked - onItemClick([event], [inner HTML of the clicked item])
+				});
 
-		// mobile menu toggle
-		var openMenuCtrl = document.querySelector('.action--open'),
-			closeMenuCtrl = document.querySelector('.action--close');
+			// mobile menu toggle
+			var openMenuCtrl = document.querySelector('.action--open'),
+				closeMenuCtrl = document.querySelector('.action--close');
 
-		openMenuCtrl.addEventListener('click', openMenu);
-		closeMenuCtrl.addEventListener('click', closeMenu);
+			openMenuCtrl.addEventListener('click', openMenu);
+			closeMenuCtrl.addEventListener('click', closeMenu);
 
-		function openMenu() {
-			classie.add(menuEl, 'menu--open');
-			closeMenuCtrl.focus();
-		}
+			function openMenu() {
+				classie.add(menuEl, 'menu--open');
+				closeMenuCtrl.focus();
+			}
 
-		function closeMenu() {
-			classie.remove(menuEl, 'menu--open');
-			openMenuCtrl.focus();
-		}
+			function closeMenu() {
+				classie.remove(menuEl, 'menu--open');
+				openMenuCtrl.focus();
+			}
 
-		// simulate grid content loading
-		var gridWrapper = document.querySelector('.content');
+			// simulate grid content loading
+			var gridWrapper = document.querySelector('.content');
 
-		function loadDummyData(ev, itemName) {
-			ev.preventDefault();
+			function loadDummyData(ev, itemName) {
+				ev.preventDefault();
 
-			closeMenu();
-			gridWrapper.innerHTML = '';
-			
-			//console.log("{{ task_title }}");
-			
-			classie.add(gridWrapper, 'content--loading');
-			setTimeout(function() {
-				classie.remove(gridWrapper, 'content--loading');
-				gridWrapper.innerHTML = v;
-			}, 700);
-		}
-	})();
+				closeMenu();
+				gridWrapper.innerHTML = '';
+
+				//console.log("{{ task_title }}");
+
+				classie.add(gridWrapper, 'content--loading');
+				setTimeout(function () {
+					classie.remove(gridWrapper, 'content--loading');
+					gridWrapper.innerHTML = v;
+				}, 700);
+			}
+		})();
 	</script>
 </body>
 

@@ -1,12 +1,12 @@
 from django import template
-from creator.models import course, topic, content
+from creator.models import months, weeks, content
 from django.db.models import Q
 
 register = template.Library()
 
 @register.filter(name='my_filter')
 def my_filter(did, stxt):
-    tops = topic.objects.filter(cid=did).order_by('oid')
+    tops = weeks.objects.filter(cid=did).order_by('oid')
     return tops.all()
 
 @register.filter(name='filter_content')

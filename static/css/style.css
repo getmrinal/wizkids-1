@@ -6,25 +6,25 @@
  */
 
 /* for preloder */
-#loader-img{
-  margin: 0 auto;
-  display: block;
-  }
-   
-  #loaders{
-      width: 40%;
-      margin: 0 auto;
-      padding: 3em;
-      text-align: center;
-      color: #fff;
-      font-family: 'Raleway', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-  }
-   
-  .border{border: 3px solid #fff;     border-radius: 5px;}
+
 /* preloader ends */
 
+/* landing page editing */
+#landTry{
+	border: 6px solid #3e3e41;
+	border-radius: 10px;
+	background:#3e3e41;
+	opacity: 0.8;
+}
+#landTry:hover{
+  background: rgba(255, 245, 245,0.1);
+  color: #fff;
+  border: 6px solid #fff;
+}
+
+#landTryIn{
+  opacity:1;
+}
 
  
 
@@ -70,7 +70,10 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: transparent;
+   /* position: relative;
+   min-height: 100%; */
+ }
 
 @-ms-viewport {
   width: device-width; }
@@ -351,8 +354,14 @@ h6, .h6 {
   font-size: 1rem; }
 
 .lead {
-  font-size: 1.25rem;
-  font-weight: 300; }
+  font-family: "Gaegu", cursive;
+  font-size: 2.0rem;
+  font-weight: 300;
+  /* border: 1px solid #fff; */
+  /* border-radius: 0.5em; */
+  text-align: left;
+  padding: 1.5rem;
+ }
 
 .display-1 {
   font-size: 6rem;
@@ -483,7 +492,9 @@ pre {
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
-  margin-left: auto; }
+  margin-left: auto;
+  padding-top: .5em;
+ }
   @media (min-width: 576px) {
     .container {
       max-width: 540px; } }
@@ -7792,7 +7803,14 @@ textarea.form-control {
   /* padding: 8em 0; */
   padding-top:4em;
   padding-bottom: 1em;
-  color: #fff; }
+  color: #fff; 
+  /* left: 0;
+  bottom: 0;
+  height: 320px;
+  width: 100%;
+  overflow: hidden;
+  position: absolute; */
+}
   .footer .heading-section {
     font-size: 20px;
     text-transform: uppercase;
@@ -8748,18 +8766,24 @@ textarea.form-control {
       .block-30 .heading {
         font-size: 80px; } }
   .block-30 .btn {
-    background: #fff;
     border-radius: 0;
-    border: 2px solid transparent;
     font-size: 14px;
     letter-spacing: .2em;
     text-transform: uppercase;
-    color: #999999;
+    color: #ffffff;
     -webkit-box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2); }
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2); 
+    background:transparent ; 
+    border:2px solid #ffffff ;
+  }
     .block-30 .btn:hover {
-      border-color: #fff;
-      color: #fff; }
+      border-color: rgb(255, 255, 255);
+      color: rgb(0, 0, 0);
+      background: #fff;
+      border:none;
+
+      
+     }
   .block-30.block-30-sm, .block-30.block-30-sm .row {
     min-height: 700px;
     height: 70vh; }
