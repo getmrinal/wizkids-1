@@ -83,14 +83,15 @@ WSGI_APPLICATION = 'wizkids.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
+ 
     'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'chalk',
-    'HOST': 'mrinalchalk.cvn4jmb3rmul.us-east-1.rds.amazonaws.com',
+    'HOST': 'chalkstudio.cvn4jmb3rmul.us-east-1.rds.amazonaws.com',
     'PORT': '3306',
-    'USER': 'mrinal',
-    'PASSWORD': 'django1234'
-}
+    'USER': 'django',
+    'PASSWORD': 'django1234',
+}    
 }
 
 
