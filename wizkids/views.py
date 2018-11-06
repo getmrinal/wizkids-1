@@ -9,6 +9,9 @@ from django.http.request import QueryDict
 # from django.contrib.admin.decorators import register
 
 
+def faceprep(request):
+	return render(request,'faceprep.html')
+
 def access_denied(request):
 	return render(request, 'access_denied_403.html')
 

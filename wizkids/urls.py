@@ -31,6 +31,7 @@ urlpatterns = [
     path('accd/',views.access_denied, name='accd'),
     path('listcourse/setvalue/',views.set_val, name='setvalue'),
     path('listcourse/',views.show_course, name='listc'),
+    path('faceprep',views.faceprep),
 
     url(r'^/validate_username/$', creatorViews.validate_username, name='validate')
     

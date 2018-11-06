@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load staticfiles %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+    #brand{
+        font-size: 1.5em;
+        padding-bottom: 1em;
+    }
+    #welcometitle{
+        font-size: 2em;
+        padding-bottom: .6em;
+
+    }
+        *{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+html{
+  font-size:100%;
+  
+}
+body{
+    background-image:#fff;
+    width:100vw;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-attachment: fixed;
+    background-position: center; 
+  height:100vh;
+ display:flex; 
+  justify-content:center;
+  font-family: 'Open Sans', 'sans-serif';
+  background-image: url(http://benague.ca/files/pw_pattern.png);
+}
+.container{
+ width:38rem;
+  margin-top:.5rem;
+  padding-top: 1rem;
+  padding-left:1rem;
+  padding-right:1rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem; 
+  /* border: 1px black solid; */
+  
+}
+.text-container{
+  margin-top:1rem;    
+  
+  display:inline-block;
+  }
+.text-left{
+  background-color:#ECECEC;
+  padding:.8rem;
+  border-radius:.5rem;
+  display:inline;
+  float:left;
+  margin-right:3rem;
+}
+.text-right{
+  background-color:#ECECEC;
+  padding:.8rem;
+  border-radius:.5rem;
+  /* margin-left:1rem; */
+  display:inline;
+  float:right;
+}
+.right{
+    width: 85%;
+    margin-left: 5rem;
+    /* margin-left:1rem; */
+}
+.left{
+    width: 85%;
+    margin-right:1rem;
+    /* margin-left: 5rem; */
+}
+.image{
+
+    width: 15%;
+    
+}
+.count{
+    /* border: #000 solid 2px; */
+    margin: 1rem;
+}
+
+.timer {
+  color: #333;
+  text-align: center;
+}
+
+h1 {
+  font-weight: normal;
+}
+
+li {
+  display: inline-block;
+  font-size: 0.9em;
+  list-style-type: none;
+  padding: 1.5em;
+  text-transform: uppercase;
+}
+
+li span {
+  display: block;
+  font-size: 1.5rem;
+}
+
+/*  buttons */
+
+/* button div */
+#buttons {
+  padding-top: 15px;
+  text-align: center;
+}
+
+/* start da css for da buttons */
+.btn {
+  border-radius: 3px;
+  padding: 5px 10px;
+  font-size: 22px;
+  text-decoration: none;
+  margin: 6px;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+  background-color: #2ecc71;
+  box-shadow: 0px 5px 0px 0px #15B358;
+  opacity: 0.3;
+}
+.images{
+  height:62px;
+  width:62px;
+}
+#firstconv{
+  margin-left:1rem;
+  opacity: 0;
+}
+#atatime1{
+  opacity: 0;
+}
+#atatime2{
+  opacity: 0;
+}
+#atatime3{
+  opacity: 0;
+}
+.fade{
+  opacity: 1;
+  transition: opacity 1s;
+}
+@media only screen  
+and (max-device-width : 580px) {
+  /* Styles */
+  #firstconv{
+  margin-left:0rem;
+}
+  #brand{
+        font-size: .75em;
+        padding-bottom: .5em;
+
+    }
+    #welcometitle{
+        font-size: 1em;
+        padding-bottom: .3em;
+        font-size: 1rem;
+
+    }
+    .subtitle{
+      font-size: .70rem;
+    }
+    .container{
+  width:100%;
+  margin-top:.25rem;
+  padding-top: .5rem;
+  
+  padding-bottom: 1rem;
+  margin-bottom: 1rem; 
+  /* border: 1px black solid; */
+  
+}
+.images{
+  width: 40px;
+  height: 40px;
+
+}
+
+.right{
+  width: 85%;
+  margin-left: 2.5rem;
+}
+.left{
+  margin-right: 0rem;
+  padding-right: 1rem;
+}
+.image{
+  width: 15%;
+}
+.text-container{
+  margin-top:.5rem;    
+    }
+.text-left{
+  padding:.4rem;
+  border-radius:.25rem;
+  margin-right:1.5rem;
+  font-size: .75rem;
+}
+.text-right{
+  padding:.4rem;
+  border-radius:.25rem;
+
+}
+li {
+  font-size: 0.45em;
+  padding: .75em;
+}
+
+li span {
+  font-size: .75rem;
+}
+
+/*  buttons */
+
+/* button div */
+#buttons {
+  padding-top: 7.5px;
+  text-align: center;
+}
+
+/* start da css for da buttons */
+.btn {
+  border-radius: 1.5px;
+  padding: 2.5px 5px;
+  font-size: 12px;
+  margin: 3px;
+}
+
+}
+
+
+</style>
+</head>
+
+<body onload="myAnimate()">
+
+  <div class="container">
+    <p id="brand"> <img src="{% static 'images/tie-32.png' %}" alt=""> <span style="vertical-align: super;"><strong>faceprep</strong></span>
+    </p>
+
+    <p id="welcometitle">Welcome to Java Full Stack Program</p>
+    <p class="subtitle" style="margin-bottom: 1.4em;margin-right:6em">Well,your ticket to the galaxy is confirmed. Now lets prepare and
+      wait for the launch of your batch.</p>
+    <span class="image"><img class="images" src="{% static 'images/chats.png' %}"></span>
+    <span id="firstconv" class="right text-container"  >
+      <p class="text-left animated fadeIn">
+        Hello Raj Karthik,I am Jabot,your assitant for this program.We are super excited to have you here.
+      </p>
+    </span>
+    <div class="right text-container " >
+      <p class="text-left animated fadeInLeft" id="secconv" style="opacity:0;" > 
+
+        We are brewing the right potion for your course.While we do that,you can sit tight or do the below.
+      </p>
+    </div>
+    <div class="right text-container " >
+      <p class="text-left animated fadeInLeft" id="thirdconv" style="opacity:0;">
+
+        I gotta go now.But I will update you in the email or you can also ping me back at <a href="mailto:java@faceprep.in">java@faceprep.in</a>
+      </p>
+    </div>
+
+
+    <div class="count" id="atatime1">
+      <!-- implement countdown -->
+      <div class="timer">
+        <ul>
+          <li><span id="days"></span>days</li>
+          <li><span id="hours"></span>Hours</li>
+          <li><span id="minutes"></span>Minutes</li>
+          <li><span id="seconds"></span>Seconds</li>
+        </ul>
+      </div>
+      <p class="timer">Your program will start on Jan 01 2019 </p>
+    </div>
+
+    <br>
+    <span class="left text-container" id="atatime2" >
+      <p class="text-right animated fadeInRight">
+        <a href="#" class="btn green">Start Course</a>
+      </p>
+    </span>
+    <span class="image" id="atatime3"><img class="images" src="https://ptetutorials.com/images/user-profile.png" ></span>
+
+
+  </div>
+
+
+  <script type="text/javascript">
+
+    function myAnimate(){
+      setTimeout(function(){ document.getElementById("firstconv").style.opacity = 1 },
+       200);
+       setTimeout(function(){ document.getElementById("secconv").style.opacity = 1 },
+       1500);
+       setTimeout(function(){ document.getElementById("thirdconv").style.opacity = 1 },
+       3000);
+       setTimeout(function(){ document.getElementById("atatime1").style.opacity = 1 },
+       4000);
+       setTimeout(function(){ document.getElementById("atatime2").style.opacity = 1 },
+       6000);
+       setTimeout(function(){ document.getElementById("atatime3").style.opacity = 1 },
+       5000);
+    }
+
+    const second = 1000,
+      minute = second * 60,
+      hour = minute * 60,
+      day = hour * 24;
+
+    let countDown = new Date('Jan 1, 2019 00:00:00').getTime(),
+      x = setInterval(function () {
+
+        let now = new Date().getTime(),
+          distance = countDown - now;
+
+        document.getElementById('days').innerText = Math.floor(distance / (day)),
+          document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+          document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+          document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+
+        //do something later when date is reached
+        //if (distance < 0) {
+        //  clearInterval(x);
+        //  start the course
+        //}
+
+      }, second)
+  </script>
+</body>
+
+</html>
